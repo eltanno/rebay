@@ -6,14 +6,14 @@ module Rebay
       it "should transform the happy json" do
         json_happy = JSON.parse(File.read(File.dirname(__FILE__) + "/json_responses/finding/get_search_keywords_recommendation_happy"))
         response = Response.new(json_happy)
-        response.response.should eq({"getSearchKeywordsRecommendationResponse" => {"ack" => "Success", "version" => "1.5.0", 
+        expect(response.response).to eq({"getSearchKeywordsRecommendationResponse" => {"ack" => "Success", "version" => "1.5.0", 
                                                                                   "timestamp" => "2010-08-13T21:11:02.539Z", "keywords" => "accordion"}})
       end
       
       it "should transform the sad json" do
         json_sad = JSON.parse(File.read(File.dirname(__FILE__) + "/json_responses/finding/get_search_keywords_recommendation_sad"))
         response = Response.new(json_sad)
-        response.response.should eq({"getSearchKeywordsRecommendationResponse" =>
+        expect(response.response).to eq({"getSearchKeywordsRecommendationResponse" =>
                         {"ack" => "Warning",
                          "errorMessage" => {"error" => {"errorId" => "59", "domain" => "Marketplace", "severity" => "Warning",
                                                       "category" => "Request", "message" => "No recommendation was identified for the submitted keywords.",
@@ -26,44 +26,44 @@ module Rebay
     
     it "should return success" do
       response = Response.new({"Ack" => "Success"})
-      response.success?.should be_true
-      response.failure?.should be_false
+      expect(response.success?).to be_truthy
+      expect(response.failure?).to be_falsey
     end
   
     it "should return failure" do
       response = Response.new({"Ack" => "Failure"})
-      response.failure?.should be_true
-      response.success?.should be_false
+      expect(response.failure?).to be_truthy
+      expect(response.success?).to be_falsey
     end
   
     it "should trim response" do
       response = Response.new({"Ack" => "Failure", "test" => "test"})
       response.trim("test")
-      response.response.should eq("test")
+      expect(response.response).to eq("test")
     end
     
     it "should trim response with syn" do
       response = Response.new({"Ack" => "Failure", "test" => "test"})
       response.trim(:test)
-      response.response.should eq("test")
+      expect(response.response).to eq("test")
     end
   
     it "should not trim response" do
       response = Response.new({"Ack" => "Failure", "test" => "test"})
       response.trim(:nothing)
-      response.response.should eq({"Ack" => "Failure", "test" => "test"})
+      expect(response.response).to eq({"Ack" => "Failure", "test" => "test"})
     end
     
     it "should set result key" do
       response = Response.new({})
-      response.should respond_to(:results)
+      expect(response).to respond_to(:results)
     end
     
     it "should provide empty iterator without a result key" do
       response = Response.new({})
       count = 0
       response.each { |r| count = count + 1 }
-      count.should eq(0)
+      expect(count).to eq(0)
     end
     
     context "using find items advanced json" do
@@ -109,11 +109,11 @@ module Rebay
       end
       
       it "should trim format response correctly" do
-        @response.response.should eq(@proper)
+        expect(@response.response).to eq(@proper)
       end
       
       it "should show correct size" do
-        @response.size.should eq(2)
+        expect(@response.size).to eq(2)
       end
     end
   end

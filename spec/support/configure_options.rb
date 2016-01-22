@@ -10,11 +10,11 @@ shared_examples "a configuration option" do |name, value|
   end
 
   it "should support configuration option #{name}" do
-    subject.class.should respond_to "#{name}="
-    subject.class.should respond_to "#{name}"
+    expect(subject.class).to respond_to "#{name}="
+    expect(subject.class).to respond_to "#{name}"
     subject.class.configure do |rebay|
-      rebay.should respond_to "#{name}="
-      rebay.should respond_to "#{name}"
+      expect(rebay).to respond_to "#{name}="
+      expect(rebay).to respond_to "#{name}"
     end
   end
 
@@ -22,7 +22,7 @@ shared_examples "a configuration option" do |name, value|
     subject.class.configure do |rebay|
       rebay.send("#{name}=", value)
     end
-    subject.class.send(name).should == value
+    expect(subject.class.send(name)).to eq(value)
   end
 end
 

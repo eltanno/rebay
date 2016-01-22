@@ -5,18 +5,18 @@ module Rebay
   describe Api do
     describe "#configure" do
       it "should respond to configure" do
-        Rebay::Api.should respond_to(:configure)
+        expect(Rebay::Api).to respond_to(:configure)
       end
       
       describe "#base_url_prefix" do
         it "shouldn't be nil" do
-          Rebay::Api.base_url_prefix.should_not be_nil
+          expect(Rebay::Api.base_url_prefix).not_to be_nil
         end
       end
 
       describe "#base_url_suffix" do
         it "shouldn't be nil" do
-          Rebay::Api.base_url_suffix.should_not be_nil
+          expect(Rebay::Api.base_url_suffix).not_to be_nil
         end
       end
       
@@ -27,7 +27,7 @@ module Rebay
               c.sandbox = true
             end
           
-            Rebay::Api.base_url.should include "sandbox"
+            expect(Rebay::Api.base_url).to include "sandbox"
           end
         end
 
@@ -37,7 +37,7 @@ module Rebay
               c.sandbox = false
             end
 
-            Rebay::Api.base_url.should_not include "sandbox"
+            expect(Rebay::Api.base_url).not_to include "sandbox"
           end
         end
       end
@@ -54,7 +54,7 @@ module Rebay
         it_behaves_like "a configuration option", :default_site_id, 100
 
         it "should default to EBAY_US" do
-          Rebay::Api.default_site_id.should eq Rebay::Api::EBAY_US
+          expect(Rebay::Api.default_site_id).to eq Rebay::Api::EBAY_US
         end
       end
     end
@@ -66,16 +66,16 @@ module Rebay
 
       it "should build rest payload from hash" do
         payload = @api.send(:build_rest_payload, {:test=>'blah', :test2=>'blah', :test3=>'blah'})
-        payload.should include("&test=blah")
-        payload.should include("&test2=blah")
-        payload.should include("&test3=blah")
+        expect(payload).to include("&test=blah")
+        expect(payload).to include("&test2=blah")
+        expect(payload).to include("&test3=blah")
       end
 
       it "should escape html chars" do
          payload = @api.send(:build_rest_payload, {:test=>'blah', :test2=>'blah', :test3=>'blah blah'})
-         payload.should include("&test=blah")
-         payload.should include("&test2=blah")
-         payload.should include("&test3=blah%20blah")
+         expect(payload).to include("&test=blah")
+         expect(payload).to include("&test2=blah")
+         expect(payload).to include("&test3=blah%20blah")
       end
     end
   end
