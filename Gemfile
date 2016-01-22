@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-group :dependencies do
-  gem 'json'
-end
-  
+gem 'rake'
+gem 'json'
+
 group :development do
   gem 'rspec'
+  gem 'rspec-activemodel-mocks'
 end

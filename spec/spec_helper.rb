@@ -8,5 +8,7 @@ RSpec.configure do |config|
 end
 
 Rebay::Api.configure do |rebay|
-  rebay.app_id = 'default'
+  rebay.app_id = 'Codesort-7d51-4677-a61d-80107e28bde6'
+  # rebay.default_site_id = Rebay::Api::EBAY_GB
+  rebay.sandbox = true
 end
